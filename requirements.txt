@@ -1,6 +1,2 @@
-# Required dependencies for port scanner
-socket
-argparse
-ipaddress
-threading
-datetime
+# Required packages for the port scanner
+# netifaces==0.11.0
