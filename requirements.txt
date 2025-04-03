@@ -1,2 +1,5 @@
-# Required packages for the port scanner
-# netifaces==0.11.0
+# Network interface detection
+netifaces==0.11.0
+
+# Tkinter
+tkinter
