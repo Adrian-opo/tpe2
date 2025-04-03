@@ -1,24 +1,29 @@
+version: '3'
+
 services:
   portas-abertas:
     build: .
+    container_name: tpe2-portas-abertas
+    restart: unless-stopped
     ports:
-      - "20:20/tcp"
-      - "21:21/tcp"
-      - "22:22/tcp"
-      - "23:23/tcp"
-      - "25:25/tcp"
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "80:80/tcp"
-      - "110:110/tcp"
-      - "143:143/tcp"
-      - "389:389/tcp"
-      - "445:445/tcp"
-      - "1433:1433/tcp"
-      - "3306:3306/tcp"
-      - "3389:3389/tcp"
-      - "5432:5432/tcp"
-      - "8080:8080/tcp"
-      - "161:161/udp"
-      - "67:67/udp"
-      - "68:68/udp"
+      # UDP Ports - using different host ports to avoid conflicts
+      - "10053:53/udp"
+      - "10161:161/udp"
+      - "10067:67/udp"
+      - "10068:68/udp"
+      # TCP Ports - using different host ports to avoid conflicts
+      - "10020:20/tcp"
+      - "10021:21/tcp"
+      - "10023:23/tcp"
+      - "10025:25/tcp"
+      - "10053:53/tcp"
+      - "10080:80/tcp"
+      - "10110:110/tcp"
+      - "10143:143/tcp"
+      - "10389:389/tcp"
+      - "10445:445/tcp"
+      - "11433:1433/tcp"
+      - "13306:3306/tcp"
+      - "13389:3389/tcp"
+      - "15432:5432/tcp"
+      - "18080:8080/tcp"
