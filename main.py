@@ -6,6 +6,25 @@ import threading
 import time
 from datetime import datetime
 
+# Lista de portas padrões comumente utilizadas
+STANDARD_PORTS = [
+    20, 21,       # FTP
+    22,          # SSH
+    23,          # Telnet
+    25, 587,     # SMTP
+    53,          # DNS
+    80, 443,     # HTTP/HTTPS
+    110, 995,    # POP3
+    143, 993,    # IMAP
+    389, 636,    # LDAP
+    445,         # SMB
+    1433, 1434,  # MS SQL
+    3306,        # MySQL
+    3389,        # RDP
+    5432,        # PostgreSQL
+    8080, 8443   # HTTP alternativo
+]
+
 def scan_port(target, port, timeout=1):
     """Scan a single port on the target."""
     try:
@@ -93,7 +112,7 @@ def parse_port_range(port_range):
 def main():
     parser = argparse.ArgumentParser(description='Simple Nmap-like port scanner')
     parser.add_argument('target', help='Target to scan (IP, hostname, or CIDR notation)')
-    parser.add_argument('-p', '--ports', default='1-1000', help='Port(s) to scan (e.g., 80,443,8000-8100)')
+    parser.add_argument('-p', '--ports', default=None, help='Port(s) to scan (e.g., 80,443,8000-8100)')
     parser.add_argument('-t', '--threads', type=int, default=100, help='Number of threads to use')
     args = parser.parse_args()
     
@@ -102,7 +121,13 @@ def main():
     
     # Parse targets and ports
     targets = get_targets(args.target)
-    ports = parse_port_range(args.ports)
+    
+    # Use predefined standard ports if no ports are specified
+    if args.ports is None:
+        ports = STANDARD_PORTS
+        print(f"No ports specified, using standard ports")
+    else:
+        ports = parse_port_range(args.ports)
     
     print(f"Scanning {len(targets)} hosts for {len(ports)} ports")
     
@@ -140,5 +165,4 @@ def main():
     print(f"\nScan finished at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 if __name__ == "__main__":
-    
     main()
