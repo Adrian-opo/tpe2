@@ -1,0 +1,6 @@
+# Required dependencies for port scanner
+socket
+argparse
+ipaddress
+threading
+datetime
